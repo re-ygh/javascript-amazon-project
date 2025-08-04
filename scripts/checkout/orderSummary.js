@@ -4,6 +4,7 @@ import { formatCurrency } from '../utils/money.js';
 import dayjs from  'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
+import { renderCheckoutHeader } from './checkoutHeader.js';
 
 
 export function renderOrderSummary() {
@@ -129,10 +130,9 @@ export function renderOrderSummary() {
               const container = document.querySelector
               (`.js-cart-item-container-${productId}`);
               container.remove();     
-              document.querySelector('.js-return-to-home-link')
-                .innerHTML = calculateAllQuantityIncart(); 
-
+            
               renderPaymentSummary();
+              renderCheckoutHeader();
           });
       });
 
@@ -142,7 +142,6 @@ export function renderOrderSummary() {
               let cartItemContainer = document.querySelector
               (`.js-cart-item-container-${link.dataset.productId}`);
               cartItemContainer.classList.add("is-editing-quantity");
-              renderPaymentSummary();
           });
       });
 
@@ -158,16 +157,14 @@ export function renderOrderSummary() {
                       const newquantity = Number(document.querySelector(`.js-quantity-input-${cartItem.productId}`).value);
                       document.querySelector(`.js-quantity-label-${cartItem.productId}`).innerHTML = newquantity;
                       cartItem.quantity = newquantity;
-                      document.querySelector('.js-return-to-home-link').innerHTML = calculateAllQuantityIncart(); 
+
                       saveToStorage();
                       renderPaymentSummary();
+                      renderCheckoutHeader();
                   }
               });
           });
       });
-
-      document.querySelector('.js-return-to-home-link').innerHTML = calculateAllQuantityIncart();
-
 
       document.querySelectorAll('.js-delivery-option')
         .forEach((element) => {
