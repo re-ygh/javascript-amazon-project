@@ -89,9 +89,6 @@ export function loadProductsFetch() {
     }
     return new Product(productDetails);
     });
-
-    console.log('load products');
-
   });
   return promise;
 }
@@ -116,8 +113,6 @@ export function loadProducts(fun) {
     return new Product(productDetails);
     });
 
-    console.log('load products');
-
     if (typeof fun === 'function') {
       fun();
     }
@@ -127,7 +122,7 @@ export function loadProducts(fun) {
   xhr.send();
 }
 
-loadProducts();
+// loadProducts();
 
 
 /*
