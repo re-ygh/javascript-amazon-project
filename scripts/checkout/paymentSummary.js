@@ -75,7 +75,6 @@ export function renderPaymentSummary (){
                 });
 
                 const order = await response.json();
-                console.log(order);
                 addOrder(order);
 
             }catch (error){
@@ -83,6 +82,7 @@ export function renderPaymentSummary (){
             }
 
 
+            /*
             const xhr = new XMLHttpRequest ();
             xhr.addEventListener('load', () => {
                 const greeting = xhr.responseText;
@@ -112,6 +112,7 @@ export function renderPaymentSummary (){
             } catch(error){
                 console.log(error + ' fetch error');
             }
+            */
 
             // window.location.href = 'orders.html';
         });

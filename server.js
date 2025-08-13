@@ -50,3 +50,12 @@ app.delete('/order/:id', (req, res) => {
 app.listen(PORT, () =>
   console.log(`Order service running at http://localhost:${PORT}/order`)
 );
+
+// ...existing code...
+
+app.delete('/orders', (req, res) => {
+  orders = [];
+  res.json({ message: 'All orders deleted' });
+});
+
+// ...existing code...
