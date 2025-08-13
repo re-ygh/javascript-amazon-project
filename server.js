@@ -6,9 +6,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Server is running!');
-});
+let orders = [];
 
 app.post('/order', (req, res) => {
   const { cart } = req.body;
@@ -24,7 +22,26 @@ app.post('/order', (req, res) => {
     createdAt: new Date().toISOString()
   };
 
+  orders.push(order);
   res.json(order);
+});
+
+app.get('/order', (req, res) => {
+  res.json(orders);
+});
+
+app.put('/order/:id', (req, res) => {
+  const { id } = req.params;
+  const order = orders.find(o => o.id === id);
+  if (!order) return res.status(404).json({ error: 'Order not found' });
+
+  Object.assign(order, req.body);
+  res.json(order);
+});
+
+app.delete('/order/:id', (req, res) => {
+  orders = orders.filter(o => o.id !== req.params.id);
+  res.json({ message: 'Order deleted' });
 });
 
 app.listen(PORT, () =>
