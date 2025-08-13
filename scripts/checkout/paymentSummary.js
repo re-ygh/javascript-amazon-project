@@ -64,7 +64,7 @@ export function renderPaymentSummary (){
     document.querySelector('.js-place-order')
         .addEventListener('click', async () => {
             try{
-                const response = await fetch('https://supersimplebackend.dev/order', {
+                const response = await fetch('https://javascript-amazon-project-1.onrender.com/order', {
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json'
