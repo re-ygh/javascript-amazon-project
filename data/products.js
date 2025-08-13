@@ -82,11 +82,26 @@ export function loadProductsFetch() {
     return response.json();
   }).then(( productsData ) => {
     products = productsData.map((productDetails) => {
-    if(productDetails.type === 'clothing'){
-      return new Clothing(productDetails);
-    }else if(productDetails.type === 'appliance'){
-      return new Appliance(productDetails);
-    }
+      if(productDetails.id === '77a845b1-16ed-4eac-bdf9-5b591882113d'
+        || productDetails.id === '54e0eccd-8f36-462b-b68a-8182611d9add'
+        || productDetails.id === '0d7f9afa-2efe-4fd9-b0fd-ba5663e0a524'
+        || productDetails.id === 'c2a82c5e-aff4-435f-9975-517cfaba2ece'
+      ){
+        productDetails.type = 'appliance';
+        productDetails.instructionsLink = "images/appliance-instructions.png";
+        productDetails.warrantyLink = "images/appliance-warranty.png";
+      }else if(productDetails.id === 'dd82ca78-a18b-4e2a-9250-31e67412f98d'
+        || productDetails.id === 'bc2847e9-5323-403f-b7cf-57fde044a955' 
+      ){
+        productDetails.type = 'clothing';
+        productDetails.instructionsLink = 'images/clothing-size-chart.png';
+      }
+
+      if(productDetails.type === 'clothing'){
+        return new Clothing(productDetails);
+      }else if(productDetails.type === 'appliance'){
+        return new Appliance(productDetails);
+      }
     return new Product(productDetails);
     });
   }).catch((error) => {
