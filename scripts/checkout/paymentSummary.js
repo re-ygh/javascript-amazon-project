@@ -64,6 +64,7 @@ export function renderPaymentSummary (){
     document.querySelector('.js-place-order')
         .addEventListener('click', async () => {
             try{
+                console.log(cart);
                 const response = await fetch('https://javascript-amazon-project-1.onrender.com/order', {
                     method: 'POST',
                     headers: {
@@ -83,6 +84,6 @@ export function renderPaymentSummary (){
             }
 
 
-            window.location.href = 'orders.html';
+            // window.location.href = 'orders.html';
         });
 }
