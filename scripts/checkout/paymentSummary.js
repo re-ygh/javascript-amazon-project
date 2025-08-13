@@ -64,7 +64,6 @@ export function renderPaymentSummary (){
     document.querySelector('.js-place-order')
         .addEventListener('click', async () => {
             try{
-                console.log(cart);
                 const response = await fetch('https://javascript-amazon-project-1.onrender.com/order', {
                     method: 'POST',
                     headers: {
@@ -83,6 +82,36 @@ export function renderPaymentSummary (){
                 console.log('unexpected error. try again later.');
             }
 
+
+            const xhr = new XMLHttpRequest ();
+            xhr.addEventListener('load', () => {
+                const greeting = xhr.responseText;
+                console.log(greeting);
+            });
+            xhr.open('GET', 'https://supersimplebackend.dev/greeting');
+            xhr.send();
+
+            try{
+                console.log((await (await fetch('https://supersimplebackend.dev/greeting')).text()) + 'fetch');
+            } catch(error){
+                console.log(error + 'fetch error');
+            }
+
+            try{
+                const response = await fetch('https://supersimplebackend.dev/greeting', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: 'reza'
+                    })
+                });
+                const data = await response.text();
+                console.log(data);
+            } catch(error){
+                console.log(error + ' fetch error');
+            }
 
             // window.location.href = 'orders.html';
         });
