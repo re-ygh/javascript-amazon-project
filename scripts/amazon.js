@@ -70,18 +70,17 @@ function renderProductsGrid() {
   document.querySelector('.js-products-grid').
   innerHTML = productsHTML;
 
-
   function updateCartQuantity(){
-      document.querySelector('.js-cart-quantity').innerHTML = calculateAllQuantityIncart();
-  }
-
-
+    document.querySelector('.js-cart-quantity')
+    .innerHTML = calculateAllQuantityIncart();
+  }  
+  
   document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
-      button.addEventListener('click', () => {
-          const productId = button.dataset.productId;
-          addToCart(productId);
-          updateCartQuantity();
-      });
+    button.addEventListener('click', () => {
+      const productId = button.dataset.productId;
+      addToCart(productId);
+      updateCartQuantity();
+    });
   });
 }

@@ -1,4 +1,4 @@
-import { cart, calculateAllQuantityIncart} from '../../data/cart.js';
+import { cart, calculateAllQuantityIncart, saveToStorage} from '../../data/cart.js';
 import { getProduct } from '../../data/products.js';
 import { getDeliveryOption} from '../../data/deliveryOptions.js';
 import { formatCurrency } from '../utils/money.js';
@@ -77,6 +77,9 @@ export function renderPaymentSummary (){
                 const order = await response.json();
                 addOrder(order);
 
+                // saveToStorage();
+                // updateCartQuantity();
+
             }catch (error){
                 console.log('unexpected error. try again later.');
             }
@@ -114,6 +117,6 @@ export function renderPaymentSummary (){
             }
             */
 
-            // window.location.href = 'orders.html';
+            window.location.href = 'orders.html';
         });
 }
