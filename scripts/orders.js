@@ -28,7 +28,7 @@ function renderOrdersGrid() {
         order.cart.forEach((cartItemForPrice) => {
             products.forEach((product) => {
                 if(product.id === cartItemForPrice.productId){
-                    totalPriceCents += Number(product.priceCents);
+                    totalPriceCents += (Number(product.priceCents) * cartItemForPrice.quantity);
                 }
             });
         });
