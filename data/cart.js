@@ -87,6 +87,12 @@ export async function loadCartFetch() {
     const data = await response.text();
 }
 
+export function clearCart() {
+    cart.length = 0; // keeps the same array reference
+    saveToStorage();
+}
+
+
 /*
 export function loadCart(fun) {
   const xhr = new XMLHttpRequest();

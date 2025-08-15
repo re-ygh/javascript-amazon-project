@@ -1,11 +1,11 @@
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { orders } from "../data/orders.js";
 import { products, loadProductsFetch } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
-import { deliveryOptions } from "../data/deliveryOptions.js";
-
+import { deliveryOptions, getDeliveryOption } from "../data/deliveryOptions.js";
+import { calculateAllQuantityIncart } from "../data/cart.js";
 loadProductsFetch().then(renderOrdersGrid);
-
+renderOrdersHeader();
 
 function renderOrdersGrid() {
     let ordersHTML = '';
@@ -24,14 +24,23 @@ function renderOrdersGrid() {
         });
         const orderID = order.id;
 
-        let totalPriceCents = 0;
+        let productPriceCents = 0 ;
+        let shippingPriceCents = 0 ;
         order.cart.forEach((cartItemForPrice) => {
             products.forEach((product) => {
                 if(product.id === cartItemForPrice.productId){
-                    totalPriceCents += (Number(product.priceCents) * cartItemForPrice.quantity);
+                    productPriceCents += 
+                    (Number(product.priceCents) * cartItemForPrice.quantity);
+                    const deliveryOption = getDeliveryOption(cartItemForPrice.deliveryId);
+                    shippingPriceCents += deliveryOption.priceCents;
                 }
             });
         });
+
+            
+        const totalBeforeTaxCents = productPriceCents + shippingPriceCents;
+        const taxCents = totalBeforeTaxCents * 0.1;
+        const totalCents = totalBeforeTaxCents + taxCents; 
 
         ordersHTML += `
             <div class="order-container">
@@ -43,7 +52,7 @@ function renderOrdersGrid() {
                     </div>
                     <div class="order-total">
                     <div class="order-header-label">Total:</div>
-                    <div>$${formatCurrency(totalPriceCents)}</div>
+                    <div>$${formatCurrency(totalCents)}</div>
                     </div>
                 </div>
 
@@ -63,6 +72,17 @@ function renderOrdersGrid() {
 
     document.querySelector('.js-orders-grid')
     .innerHTML = ordersHTML;
+
+    document.querySelectorAll('.js-buy-again-button')
+    .forEach((button) => {
+        button.addEventListener('click', () => {
+        const productId = button.dataset.productId;        
+        addToCart(productId);
+        document.querySelector('.js-cart-quantity')
+        .innerHTML = calculateAllQuantityIncart();
+        });
+    });
+
 }
 
 
@@ -80,10 +100,11 @@ function renderOrderDetailsGrid (cart, date){
             const imageLink = cartItemInUse.image;
             const name = cartItemInUse.name;
             const quantity = cartItem.quantity;
+            const productId = cartItemInUse.id;
 
             let arrivingDate = new Date(date);
-            const deliveryOption = deliveryOptions
-            .find(option => option.id === cartItem.deliveryId);
+
+            const deliveryOption = getDeliveryOption(cartItem.deliveryId);
             arrivingDate.setDate
             (arrivingDate.getDate() + deliveryOption.deliveryDays);
             const arrivingDateFormatted =
@@ -111,7 +132,9 @@ function renderOrderDetailsGrid (cart, date){
                 <div class="product-quantity">
                 Quantity: ${quantity}
                 </div>
-                <button class="buy-again-button button-primary">
+                <button class="buy-again-button button-primary
+                js-buy-again-button"
+                data-product-id="${productId}">
                 <img class="buy-again-icon" src="images/icons/buy-again.png">
                 <span class="buy-again-message">Buy it again</span>
                 </button>
@@ -128,4 +151,44 @@ function renderOrderDetailsGrid (cart, date){
     });
 
     return orderDetailsHTML;
+}
+
+function renderOrdersHeader (){
+        const amazonHeaderHTML =`
+            <div class="amazon-header-left-section">
+                <a href="amazon.html" class="header-link">
+                <img class="amazon-logo"
+                    src="images/amazon-logo-white.png">
+                <img class="amazon-mobile-logo"
+                    src="images/amazon-mobile-logo-white.png">
+                </a>
+            </div>
+
+            <div class="amazon-header-middle-section">
+                <input class="search-bar" type="text" placeholder="Search">
+
+                <button class="search-button">
+                <img class="search-icon" src="images/icons/search-icon.png">
+                </button>
+            </div>
+
+            <div class="amazon-header-right-section">
+                <a class="orders-link header-link" href="orders.html">
+                <span class="returns-text">Returns</span>
+                <span class="orders-text">& Orders</span>
+                </a>
+
+                <a class="cart-link header-link" href="checkout.html">
+                <img class="cart-icon" src="images/icons/cart-icon.png">
+                <div class="cart-quantity js-cart-quantity"></div>
+                <div class="cart-text">Cart</div>
+                </a>
+            </div>
+        `;
+
+        document.querySelector('.js-amazon-header')
+        .innerHTML = amazonHeaderHTML;
+
+        document.querySelector('.js-cart-quantity')
+        .innerHTML = calculateAllQuantityIncart();
 }
