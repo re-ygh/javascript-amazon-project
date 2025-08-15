@@ -22,7 +22,7 @@ async function loadPage() {
         // }); 
 
     } catch (error) {
-        console.log('unexpected error. please try again later.');
+        console.log(error);
     }
 
     renderOrderSummary();
