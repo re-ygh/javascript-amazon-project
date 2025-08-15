@@ -8,8 +8,6 @@ import { orders } from '../../data/orders.js';
 export function renderOrdersGrid() {
     let ordersHTML = '';
 
-    console.log(orders);
-
     orders
     .filter(item => item.cart) // keep only ones with a cart
     .forEach(order => {   
@@ -61,7 +59,7 @@ export function renderOrdersGrid() {
                 </div>
 
                 <div class="order-details-grid js-order-details-grid">
-                ${renderOrderDetailsGrid(order.cart, date)}
+                ${renderOrderDetailsGrid(order.cart, date, orderID)}
                 </div>
             </div>
         `;  
@@ -84,7 +82,7 @@ export function renderOrdersGrid() {
 }
 
 
-function renderOrderDetailsGrid (cart, date){
+function renderOrderDetailsGrid (cart, date, orderID){
     let orderDetailsHTML = '';
 
         cart.forEach((cartItem) => {
@@ -139,7 +137,7 @@ function renderOrderDetailsGrid (cart, date){
             </div>
     
             <div class="product-actions">
-                <a href="tracking.html?orderId=123&productId=456">
+                <a href="tracking.html?orderId=${orderID}&productId=${productId}">
                 <button class="track-package-button button-secondary">
                     Track package
                 </button>
