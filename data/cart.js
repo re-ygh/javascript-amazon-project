@@ -91,19 +91,3 @@ export function clearCart() {
     cart.length = 0; // keeps the same array reference
     saveToStorage();
 }
-
-
-/*
-export function loadCart(fun) {
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener('load', () => {    
-    if (typeof fun === 'function') {
-      fun();
-    }
-  });
-
-  xhr.open('GET','https://supersimplebackend.dev/cart');
-  xhr.send();
-}
-*/

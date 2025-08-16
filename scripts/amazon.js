@@ -1,7 +1,5 @@
-import {cart, addToCart, calculateAllQuantityIncart} from '../data/cart.js';
-import { products, loadProducts, loadProductsFetch } from '../data/products.js';
-import { formatCurrency } from './utils/money.js';
-
+import { addToCart, calculateAllQuantityIncart} from '../data/cart.js';
+import { products, loadProductsFetch } from '../data/products.js';
 
 
 loadProductsFetch().then(renderProductsGrid);
@@ -9,13 +7,8 @@ loadProductsFetch().then(renderProductsGrid);
 
 document.querySelector('.js-search-button')
 .addEventListener('click', () => {
-  console.log(0);
   const searchedName = document.querySelector
   ('.js-search-bar').value;
-  
-  console.log(1);
-  console.log(searchedName);
-  console.log(2);
 
   document.querySelector
   ('.js-search-bar-link').href = `amazon.html?search=${searchedName}`;
@@ -39,7 +32,6 @@ function renderProductsGrid() {
         }
       });
       if(product.name.toLowerCase().includes(searchedName.toLowerCase()) || keyWordFound){
-        console.log(2);
         productsHTML += `
           <div class="product-container">
             <div class="product-image-container">

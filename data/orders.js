@@ -1,5 +1,3 @@
-import { cart } from "./cart.js";
-
 export let orders = JSON.parse(localStorage.getItem('orders')) || [];
 
 const response = await fetch('https://javascript-amazon-project-1.onrender.com/order');

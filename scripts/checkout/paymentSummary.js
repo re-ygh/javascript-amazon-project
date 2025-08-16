@@ -1,4 +1,4 @@
-import { cart, clearCart, calculateAllQuantityIncart, saveToStorage} from '../../data/cart.js';
+import { cart, clearCart, calculateAllQuantityIncart } from '../../data/cart.js';
 import { getProduct } from '../../data/products.js';
 import { getDeliveryOption} from '../../data/deliveryOptions.js';
 import { formatCurrency } from '../utils/money.js';
@@ -81,39 +81,6 @@ export function renderPaymentSummary (){
             }catch (error){
                 console.log('unexpected error. try again later.', error);
             }
-
-
-            /*
-            const xhr = new XMLHttpRequest ();
-            xhr.addEventListener('load', () => {
-                const greeting = xhr.responseText;
-                console.log(greeting);
-            });
-            xhr.open('GET', 'https://supersimplebackend.dev/greeting');
-            xhr.send();
-
-            try{
-                console.log((await (await fetch('https://supersimplebackend.dev/greeting')).text()) + 'fetch');
-            } catch(error){
-                console.log(error + 'fetch error');
-            }
-
-            try{
-                const response = await fetch('https://supersimplebackend.dev/greeting', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name: 'reza'
-                    })
-                });
-                const data = await response.text();
-                console.log(data);
-            } catch(error){
-                console.log(error + ' fetch error');
-            }
-            */
 
             window.location.href = 'orders.html';
         });
