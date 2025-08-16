@@ -124,7 +124,10 @@ function renderOrderTracking() {
 
     let currentStatusClass = '';
 
-    if (statusBarPercentage < 50) {
+    if (statusBarPercentage === 0){
+        statusBarPercentage = 1;
+        currentStatusClass = `.js-Preparing-label`;
+    } else if (statusBarPercentage < 50) {
         currentStatusClass = `.js-Preparing-label`;
     } else if (statusBarPercentage >= 50 && statusBarPercentage < 100) {
         currentStatusClass = `.js-Shipped-label`;
