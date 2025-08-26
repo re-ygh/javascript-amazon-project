@@ -2,6 +2,9 @@
 
 <!-- HEADER STYLE: CLASSIC -->
 <div align="center">
+	
+# javascript-amazon-project
+	
 <em>Built with the tools and technologies:</em>
 
 <img src="https://img.shields.io/badge/JSON-000000.svg?style=flat&logo=JSON&logoColor=white" alt="JSON">
